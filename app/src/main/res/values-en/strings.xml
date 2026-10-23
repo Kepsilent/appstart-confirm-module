@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Always allow app-to-app jumps</string>
+    <string name="xposed_description">Standalone module extracted from coloros-mod: restores the native app-jump confirmation dialog with an \"Always allow to open\" checkbox in ColorOS permission manager. Mechanism-level compatibility (no version whitelist): works as long as the system keeps the \"version 2 → legacy dialog\" branch; verified on ColorOS 17 / Android 17. MIT License, original author rikumi.</string>
+
+    <string name="app_start_confirm_permission_group">Permission manager</string>
+    <string name="app_start_confirm_always_allow">Restore always-allow app jump dialog</string>
+    <string name="settings_section_title">Toggle</string>
+    <string name="settings_switch_hint">When enabled, unauthorized app-to-app jumps show the native \"Always allow to open\" checkbox; checking it and allowing saves a long-term grant for caller → target. Payment-protection, mini-program and blacklist jumps keep native behavior.</string>
+    <string name="settings_scope_hint">Enable this module in LSPosed and check scope \"Permission manager (com.oplus.securitypermission)\".</string>
+    <string name="settings_hide_icon">Hide launcher icon</string>
+    <string name="settings_hide_icon_hint">When on, the launcher icon disappears. Restoring is unaffected: open LSPosed → Modules → this module\'s settings page (that entry is not the launcher icon) and turn this switch off again.</string>
+    <string name="settings_risk_hint">Compatibility is independent of the system version: works as long as the permission center keeps the \"version 2 → legacy dialog\" branch; verified on ColorOS 17 / Android 17. If the class or branch changes in later versions, the hook only logs failure. Modding has risks, back up first.</string>
+</resources>

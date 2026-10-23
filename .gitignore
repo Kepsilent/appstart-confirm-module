@@ -1,0 +1,15 @@
+# 构建产物
+build/
+.gradle/
+local.properties
+signing.properties
+*.jks
+
+# 设计/发布过程文件（不公开）
+RELEASE_GUIDE*
+design/
+.creative-design/
+
+# Release 分发资产（不进仓库，走 GitHub Release 附件）
+*.apk
+appstart-confirm-module.zip

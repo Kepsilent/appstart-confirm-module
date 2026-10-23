@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">恢复始终允许应用间跳转</string>
+    <string name="xposed_description">从 coloros-mod 提取的独立模块：恢复 ColorOS 权限管理中带“始终允许打开”复选框的原生应用间跳转确认对话框。机制级兼容（无版本白名单）：只要系统仍保留“version 2 → 旧对话框”分支即生效，已在 ColorOS 17 / Android 17 实测可用。MIT License，原作者 rikumi。</string>
+
+    <string name="app_start_confirm_permission_group">权限管理</string>
+    <string name="app_start_confirm_always_allow">恢复始终允许应用间跳转对话框</string>
+    <string name="settings_section_title">功能开关</string>
+    <string name="settings_switch_hint">开启后，未授权的应用间跳转将出现原生“始终允许打开”复选框；勾选并允许后，系统会为“调用方 → 目标应用”保存长期授权。支付保护、小程序拦截与黑名单跳转保持原生行为。</string>
+    <string name="settings_scope_hint">使用前请在 LSPosed 中启用本模块，并勾选作用域“权限管理（com.oplus.securitypermission）”。</string>
+    <string name="settings_hide_icon">隐藏桌面图标</string>
+    <string name="settings_hide_icon_hint">开启后桌面不再显示本模块图标；恢复入口不受影响：打开 LSPosed → 模块列表 → 本模块设置页（该入口非桌面图标），重新关闭此开关即可。</string>
+    <string name="settings_risk_hint">兼容机制与系统版本无关：只要权限中心仍保留“version 2 → 旧对话框”分支即生效，已在 ColorOS 17 / Android 17 实测可用；类名或分支若在后续版本变化，hook 失效仅记日志。改机有风险，请先备份。</string>
+</resources>

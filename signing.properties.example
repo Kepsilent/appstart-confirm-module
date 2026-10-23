@@ -1,0 +1,6 @@
+# 可选固定签名配置（示例）。复制本文件为 signing.properties 并填写后生效。
+# storeFile 可以是相对本文件的路径，也可以是绝对路径。
+storeFile=./keystore.jks
+storePassword=changeit
+keyAlias=appstartconfirm
+keyPassword=changeit

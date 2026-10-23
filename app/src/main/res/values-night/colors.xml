@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- EGD v1.2 token：深色主题（纯黑底 / 玻璃 rgba(28,28,30,0.6) / 签名绿 #00D494） -->
+<resources>
+    <color name="bg">#000000</color>
+    <color name="text_primary">#F5F5F7</color>
+    <color name="text_secondary">#AEAEB2</color>
+    <color name="text_weak">#6E6E73</color>
+    <color name="accent">#00D494</color>
+
+    <color name="glass_card_bg">#99282830</color>
+    <color name="glass_border">#33FFFFFF</color>
+    <color name="glass_highlight">#14FFFFFF</color>
+
+    <color name="switch_track_on">#6600D494</color>
+    <color name="switch_track_off">#2C2C2E</color>
+    <color name="switch_thumb">#FFFFFF</color>
+    <color name="switch_thumb_shadow">#33000000</color>
+</resources>

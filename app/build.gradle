@@ -1,0 +1,61 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    namespace 'com.colorosmod.appstartconfirm'
+    compileSdk 37
+    buildToolsVersion '36.1.0'
+
+    defaultConfig {
+        applicationId 'com.colorosmod.appstartconfirm'
+        minSdk 26
+        targetSdk 37
+        versionCode 3
+        versionName '2.0.0'
+    }
+
+    // 可选：固定签名（便于跨版本升级）。默认走 Android 自动 debug 签名，直接可装。
+    // 如需固定签名，复制 signing.properties.example 为 signing.properties 并填写。
+    def signingPropertiesFile = rootProject.file('signing.properties')
+    def stableSigning = null
+    if (signingPropertiesFile.isFile()) {
+        def props = new Properties()
+        signingPropertiesFile.withInputStream { props.load(it) }
+        if (['storeFile', 'storePassword', 'keyAlias', 'keyPassword'].every { props.getProperty(it)?.trim() }) {
+            def storeFile = new File(props.getProperty('storeFile'))
+            if (!storeFile.isAbsolute()) {
+                storeFile = new File(signingPropertiesFile.parentFile, props.getProperty('storeFile'))
+            }
+            if (storeFile.isFile()) {
+                stableSigning = android.signingConfigs.create('stable')
+                stableSigning.storeFile = storeFile
+                stableSigning.storePassword = props.getProperty('storePassword')
+                stableSigning.keyAlias = props.getProperty('keyAlias')
+                stableSigning.keyPassword = props.getProperty('keyPassword')
+            }
+        }
+    }
+
+    buildTypes {
+        debug {
+            if (stableSigning != null) signingConfig = stableSigning
+        }
+        release {
+            minifyEnabled false
+            if (stableSigning != null) signingConfig = stableSigning
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+}
+
+dependencies {
+    // 现代 Xposed API (libxposed)，compileOnly 由框架在运行时提供。
+    compileOnly 'io.github.libxposed:api:102.0.0'
+    compileOnly 'io.github.libxposed:annotation:1.0.0'
+    implementation 'io.github.libxposed:service:102.0.0'
+}

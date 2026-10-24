@@ -169,13 +169,13 @@ locales = [d.name for d in (ROOT / 'app/src/main/res').iterdir()
 for locale in locales:
     strings = {s.attrib['name']: s.text for s in
                ET.parse(ROOT / 'app/src/main/res' / locale / 'strings.xml').getroot()}
-    assert {'app_start_confirm_always_allow', 'about_project'} <= set(strings)
+    assert {'about_title', 'about_author', 'about_author_name',
+            'about_project', 'about_project_url', 'about_version'} <= set(strings)
     assert all(strings.values())
 entry = (ROOT / 'app/src/main/java/io/github/kepsilent/appstartconfirm/XposedInit.java').read_text()
 main = (ROOT / 'app/src/main/java/io/github/kepsilent/appstartconfirm/MainActivity.java').read_text()
 scope = (ROOT / 'app/src/main/resources/META-INF/xposed/scope.list').read_text().splitlines()
-assert KEY in entry and 'XposedInit.KEY_APP_START_CONFIRM_ALWAYS_ALLOW_ENABLED' in main
-assert main.count('XposedInit.KEY_APP_START_CONFIRM_ALWAYS_ALLOW_ENABLED') == 1
+assert KEY in entry
 assert 'com.oplus.securitypermission' in entry
 assert 'AppStartConfirmHooks.hook(lpparam);' in entry
 assert 'com.oplus.securitypermission' in scope

@@ -3,6 +3,10 @@
     <string name="app_name">恢复始终允许应用间跳转</string>
     <string name="xposed_description">恢复 ColorOS 应用间跳转确认框的「始终允许打开」按钮，真实生效。</string>
 
-    <string name="app_start_confirm_always_allow">始终允许打开</string>
-    <string name="about_project">github.com/Kepsilent/appstart-confirm-module</string>
+    <string name="about_title">关于</string>
+    <string name="about_author">作者</string>
+    <string name="about_author_name">Kepsilent</string>
+    <string name="about_project">开源项目</string>
+    <string name="about_project_url">github.com/Kepsilent/appstart-confirm-module</string>
+    <string name="about_version">版本</string>
 </resources>

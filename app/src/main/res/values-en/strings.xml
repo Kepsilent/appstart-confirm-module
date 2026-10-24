@@ -3,6 +3,10 @@
     <string name="app_name">Always allow app-to-app jumps</string>
     <string name="xposed_description">Restores the \"Always allow to open\" checkbox in ColorOS app-jump confirmations — and it actually works.</string>
 
-    <string name="app_start_confirm_always_allow">Always allow to open</string>
-    <string name="about_project">github.com/Kepsilent/appstart-confirm-module</string>
+    <string name="about_title">About</string>
+    <string name="about_author">Author</string>
+    <string name="about_author_name">Kepsilent</string>
+    <string name="about_project">Project</string>
+    <string name="about_project_url">github.com/Kepsilent/appstart-confirm-module</string>
+    <string name="about_version">Version</string>
 </resources>

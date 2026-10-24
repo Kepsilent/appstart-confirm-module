@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- EGD 应用图标：签名绿底 + 白色盾牌闪电（自适应矢量，零 PNG） -->
-<adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
-    <background android:drawable="@color/accent" />
-    <foreground android:drawable="@drawable/ic_launcher_fg" />
-</adaptive-icon>

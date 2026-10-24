@@ -2,41 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <!-- 无界面、无设置、无桌面图标：模块启用即生效（入口见 META-INF/xposed/java_init.list）。 -->
     <application
-        android:directBootAware="true"
-        android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:description="@string/xposed_description"
-        android:theme="@style/Theme.EGD"
-        tools:ignore="MissingApplicationIcon">
+        tools:ignore="MissingApplicationIcon" />
 
-        <!-- LSPosed 启动按钮按 MODULE_SETTINGS 类别解析模块设置入口 -->
-        <activity
-            android:name=".MainActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="de.robv.android.xposed.category.MODULE_SETTINGS" />
-            </intent-filter>
-        </activity>
-
-        <!-- 无桌面图标：仅经 LSPosed 模块列表进入设置 -->
-
-        <!--
-            跨进程暴露模块设置给被 hook 的进程（com.oplus.securitypermission :ui）。
-            SELinux 禁止被 hook 进程直接读模块的 app_data_file，ContentProvider 走 Binder 不受此限制；
-            directBootAware 保证锁定态（Direct Boot）也能拉起查询。
-        -->
-        <provider
-            android:name=".SettingsProvider"
-            android:authorities="io.github.kepsilent.appstartconfirm.settings"
-            android:directBootAware="true"
-            android:exported="true" />
-    </application>
-
-    <!--
-        新版(libxposed)模块入口见 META-INF/xposed/java_init.list，
-        作用域见 META-INF/xposed/scope.list，配置见 META-INF/xposed/module.prop。
-    -->
 </manifest>

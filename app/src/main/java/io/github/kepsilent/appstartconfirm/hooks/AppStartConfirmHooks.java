@@ -1,8 +1,6 @@
 package io.github.kepsilent.appstartconfirm.hooks;
 
-import static io.github.kepsilent.appstartconfirm.XposedInit.KEY_APP_START_CONFIRM_ALWAYS_ALLOW_ENABLED;
 import static io.github.kepsilent.appstartconfirm.XposedInit.log;
-import static io.github.kepsilent.appstartconfirm.XposedInit.readBool;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -14,6 +12,7 @@ import io.github.kepsilent.appstartconfirm.xposed.XposedHelpers;
 
 /**
  * SecurityPermission 16.08.003 的原生应用间跳转确认框，运行在 :ui 进程。
+ * 模块启用即生效：无需任何设置。
  *
  * 原项目: https://github.com/rikumi/coloros-mod (MIT License)
  * 提取说明见 docs/investigations/app-start-confirm-always-allow.md。
@@ -31,14 +30,13 @@ public final class AppStartConfirmHooks {
                         protected void beforeHookedMethod(MethodHookParam param) {
                             Activity activity = (Activity) param.thisObject;
                             Intent original = activity.getIntent();
-                            boolean enabled = readBool(KEY_APP_START_CONFIRM_ALWAYS_ALLOW_ENABLED, false);
-                            Intent restored = dialogIntent(original, enabled);
-                            // 诊断日志：一次触发即可定位根因（action/版本/跳转类型/开关/是否命中）
+                            Intent restored = dialogIntent(original);
+                            // 诊断日志：一次触发即可定位根因（action/版本/跳转类型/是否命中）
                             if (original != null) {
                                 log("AppStartConfirm intent: action=" + original.getAction()
                                         + " version=" + original.getIntExtra(VERSION, -1)
                                         + " start_type=" + original.getIntExtra("start_type", -1)
-                                        + " enabled=" + enabled + " -> hit=" + (restored != original));
+                                        + " -> hit=" + (restored != original));
                             } else {
                                 log("AppStartConfirm intent: null intent");
                             }
@@ -51,8 +49,8 @@ public final class AppStartConfirmHooks {
         }
     }
 
-    static Intent dialogIntent(Intent original, boolean enabled) {
-        if (!enabled || original == null || !ACTION_CONFIRM.equals(original.getAction())
+    static Intent dialogIntent(Intent original) {
+        if (original == null || !ACTION_CONFIRM.equals(original.getAction())
                 || original.getIntExtra(VERSION, 0) != 2) return original;
         int type = original.getIntExtra("start_type", -1);
         // i9.a$b: 普通跳转 0、推荐 30 天 5、推荐单次 6 均由 i9.k 创建。

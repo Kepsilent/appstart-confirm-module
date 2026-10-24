@@ -52,10 +52,6 @@ STUBS = {
     'io/github/kepsilent/appstartconfirm/XposedInit.java': '''
         package io.github.kepsilent.appstartconfirm;
         public class XposedInit {
-            public static final String KEY_APP_START_CONFIRM_ALWAYS_ALLOW_ENABLED =
-                "app_start_confirm_always_allow_enabled";
-            public static boolean enabled;
-            public static boolean readBool(String key,boolean fallback) { return enabled; }
             public static void log(String message) {}
         }
     ''',
@@ -111,12 +107,11 @@ STUBS = {
                 return i;
             }
             public static void main(String[] args) {
-                check(AppStartConfirmHooks.dialogIntent(null,true)==null);
+                check(AppStartConfirmHooks.dialogIntent(null)==null);
                 for (int version=-1;version<=3;version++) {
                     for (int type=-1;type<=10;type++) {
                         Intent original=input(type,version);
-                        check(AppStartConfirmHooks.dialogIntent(original,false)==original);
-                        Intent out=AppStartConfirmHooks.dialogIntent(original,true);
+                        Intent out=AppStartConfirmHooks.dialogIntent(original);
                         boolean eligible=version==2&&(type==0||type==5||type==6);
                         check((out!=original)==eligible);
                         check(original.getIntExtra(VERSION,-99)==version);
@@ -128,23 +123,16 @@ STUBS = {
                     }
                 }
                 Intent wrong=input(0,2); wrong.action="other.action";
-                check(AppStartConfirmHooks.dialogIntent(wrong,true)==wrong);
+                check(AppStartConfirmHooks.dialogIntent(wrong)==wrong);
                 Intent missing=input(0,2); missing.extras.remove("start_type");
-                check(AppStartConfirmHooks.dialogIntent(missing,true)==missing);
+                check(AppStartConfirmHooks.dialogIntent(missing)==missing);
                 Intent unknown=input(0,2); unknown.extras.remove(VERSION);
-                check(AppStartConfirmHooks.dialogIntent(unknown,true)==unknown);
+                check(AppStartConfirmHooks.dialogIntent(unknown)==unknown);
                 AppStartConfirmHooks.hook(new XC_LoadPackage.LoadPackageParam());
                 check(XposedHelpers.installed!=null);
                 Activity a=new Activity(); a.intent=input(0,2);
                 XposedHelpers.installed.fire(a);
-                check(a.setCalls==0); // 默认关闭，连 setIntent 都不执行。
-                XposedInit.enabled=true;
-                XposedHelpers.installed.fire(a);
                 check(a.setCalls==1&&a.intent.getIntExtra(VERSION,-1)==0);
-                XposedInit.enabled=false;
-                Activity next=new Activity(); next.intent=input(0,2);
-                XposedHelpers.installed.fire(next);
-                check(next.setCalls==0&&next.intent.getIntExtra(VERSION,-1)==2);
                 System.out.println("PASS: "+checks+" JVM checks (mock Android; no device validation)");
             }
         }
@@ -169,13 +157,10 @@ locales = [d.name for d in (ROOT / 'app/src/main/res').iterdir()
 for locale in locales:
     strings = {s.attrib['name']: s.text for s in
                ET.parse(ROOT / 'app/src/main/res' / locale / 'strings.xml').getroot()}
-    assert {'about_title', 'about_author', 'about_author_name',
-            'about_project', 'about_project_url', 'about_version'} <= set(strings)
+    assert {'app_name', 'xposed_description'} <= set(strings)
     assert all(strings.values())
 entry = (ROOT / 'app/src/main/java/io/github/kepsilent/appstartconfirm/XposedInit.java').read_text()
-main = (ROOT / 'app/src/main/java/io/github/kepsilent/appstartconfirm/MainActivity.java').read_text()
 scope = (ROOT / 'app/src/main/resources/META-INF/xposed/scope.list').read_text().splitlines()
-assert KEY in entry
 assert 'com.oplus.securitypermission' in entry
 assert 'AppStartConfirmHooks.hook(lpparam);' in entry
 assert 'com.oplus.securitypermission' in scope

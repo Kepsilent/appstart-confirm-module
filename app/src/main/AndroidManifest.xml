@@ -21,19 +21,7 @@
             </intent-filter>
         </activity>
 
-        <!-- 桌面图标入口别名 -->
-        <activity-alias
-            android:name=".MainActivityLauncher"
-            android:enabled="true"
-            android:exported="true"
-            android:icon="@mipmap/ic_launcher"
-            android:label="@string/app_name"
-            android:targetActivity=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity-alias>
+        <!-- 无桌面图标：仅经 LSPosed 模块列表进入设置 -->
 
         <!--
             跨进程暴露模块设置给被 hook 的进程（com.oplus.securitypermission :ui）。

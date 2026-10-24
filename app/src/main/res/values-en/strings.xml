@@ -4,5 +4,5 @@
     <string name="xposed_description">Restores the \"Always allow to open\" checkbox in ColorOS app-jump confirmations — and it actually works.</string>
 
     <string name="app_start_confirm_always_allow">Always allow to open</string>
-    <string name="settings_hide_icon">Hide launcher icon</string>
+    <string name="about_project">github.com/Kepsilent/appstart-confirm-module</string>
 </resources>

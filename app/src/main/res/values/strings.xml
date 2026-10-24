@@ -4,5 +4,5 @@
     <string name="xposed_description">恢复 ColorOS 应用间跳转确认框的「始终允许打开」按钮，真实生效。</string>
 
     <string name="app_start_confirm_always_allow">始终允许打开</string>
-    <string name="settings_hide_icon">隐藏桌面图标</string>
+    <string name="about_project">github.com/Kepsilent/appstart-confirm-module</string>
 </resources>

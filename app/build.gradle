@@ -11,8 +11,8 @@ android {
         applicationId 'io.github.kepsilent.appstartconfirm'
         minSdk 26
         targetSdk 37
-        versionCode 8
-        versionName '3.0.3'
+        versionCode 9
+        versionName '3.0.4'
     }
 
     // 可选：固定签名（便于跨版本升级）。默认走 Android 自动 debug 签名，直接可装。
@@ -42,8 +42,11 @@ android {
             if (stableSigning != null) signingConfig = stableSigning
         }
         release {
-            minifyEnabled false
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             if (stableSigning != null) signingConfig = stableSigning
+            else signingConfig = signingConfigs.debug
         }
     }
 

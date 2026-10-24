@@ -27,6 +27,8 @@
 
 > The scope list may display the app as "Permission manager"; the package name is `com.oplus.securitypermission`.
 
+Found a bug? [File an issue](https://github.com/Kepsilent/appstart-confirm-module/issues)
+
 ## Compatibility
 
 - Mechanism is **independent of system version** (no version whitelist in code): works as long as the system keeps the `AppStartConfirmDialogActivity` class name and the `version 2 → legacy dialog` branch

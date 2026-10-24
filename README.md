@@ -27,6 +27,8 @@
 
 > 作用域里显示的应用名可能是「权限管理」，包名才是 `com.oplus.securitypermission`。
 
+遇到问题？[提交 Issue](https://github.com/Kepsilent/appstart-confirm-module/issues)
+
 ## 兼容性
 
 - 机制与 **系统版本无关**（代码无版本白名单）：只要系统仍保留 `AppStartConfirmDialogActivity` 类名与 `version 2 → 旧对话框` 分支即生效

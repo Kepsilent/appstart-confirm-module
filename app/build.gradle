@@ -11,8 +11,8 @@ android {
         applicationId 'io.github.kepsilent.appstartconfirm'
         minSdk 26
         targetSdk 37
-        versionCode 11
-        versionName '3.0.6'
+        versionCode 12
+        versionName '3.0.7'
     }
 
     buildFeatures {
@@ -46,8 +46,8 @@ android {
             if (stableSigning != null) signingConfig = stableSigning
         }
         release {
-            minifyEnabled true
-            shrinkResources true
+            minifyEnabled false
+            shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             if (stableSigning != null) signingConfig = stableSigning
             else signingConfig = signingConfigs.debug

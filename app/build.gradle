@@ -64,5 +64,4 @@ dependencies {
     // 现代 Xposed API (libxposed)，compileOnly 由框架在运行时提供。
     compileOnly 'io.github.libxposed:api:102.0.0'
     compileOnly 'io.github.libxposed:annotation:1.0.0'
-    implementation 'io.github.libxposed:service:102.0.0'
 }

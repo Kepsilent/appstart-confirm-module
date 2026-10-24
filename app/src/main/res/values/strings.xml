@@ -3,7 +3,6 @@
     <string name="app_name">恢复始终允许应用间跳转</string>
     <string name="xposed_description">恢复 ColorOS 应用间跳转确认框的「始终允许打开」按钮，真实生效。</string>
 
-    <string name="app_start_confirm_always_allow">恢复始终允许应用间跳转对话框</string>
+    <string name="app_start_confirm_always_allow">始终允许打开</string>
     <string name="settings_hide_icon">隐藏桌面图标</string>
-    <string name="settings_hide_icon_hint">桌面不显示图标，LSPosed 内仍可进入设置。</string>
 </resources>

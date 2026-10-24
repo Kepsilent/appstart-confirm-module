@@ -17,4 +17,5 @@
     <color name="switch_track_off">#E8E8ED</color>
     <color name="switch_thumb">#FFFFFF</color>
     <color name="switch_thumb_shadow">#33FFFFFF</color>
+    <color name="divider">#33000000</color>
 </resources>

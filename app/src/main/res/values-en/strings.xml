@@ -3,7 +3,6 @@
     <string name="app_name">Always allow app-to-app jumps</string>
     <string name="xposed_description">Restores the \"Always allow to open\" checkbox in ColorOS app-jump confirmations — and it actually works.</string>
 
-    <string name="app_start_confirm_always_allow">Restore always-allow app jump dialog</string>
+    <string name="app_start_confirm_always_allow">Always allow to open</string>
     <string name="settings_hide_icon">Hide launcher icon</string>
-    <string name="settings_hide_icon_hint">Icon hidden; still reachable inside LSPosed.</string>
 </resources>

@@ -11,8 +11,8 @@ android {
         applicationId 'io.github.kepsilent.appstartconfirm'
         minSdk 26
         targetSdk 37
-        versionCode 5
-        versionName '3.0.0'
+        versionCode 6
+        versionName '3.0.1'
     }
 
     // 可选：固定签名（便于跨版本升级）。默认走 Android 自动 debug 签名，直接可装。

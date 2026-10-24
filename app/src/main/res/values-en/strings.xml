@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Always allow app-to-app jumps</string>
-    <string name="xposed_description">Standalone module extracted from coloros-mod: restores the native app-jump confirmation dialog with an \"Always allow to open\" checkbox in ColorOS permission manager. Mechanism-level compatibility (no version whitelist): works as long as the system keeps the \"version 2 → legacy dialog\" branch; verified on ColorOS 17 / Android 17. MIT License, original author rikumi.</string>
+    <string name="xposed_description">Restores the \"Always allow to open\" checkbox in ColorOS app-jump confirmations — and it actually works.</string>
 
     <string name="app_start_confirm_permission_group">Permission manager</string>
     <string name="app_start_confirm_always_allow">Restore always-allow app jump dialog</string>

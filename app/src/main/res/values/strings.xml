@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">恢复始终允许应用间跳转</string>
-    <string name="xposed_description">从 coloros-mod 提取的独立模块：恢复 ColorOS 权限管理中带“始终允许打开”复选框的原生应用间跳转确认对话框。机制级兼容（无版本白名单）：只要系统仍保留“version 2 → 旧对话框”分支即生效，已在 ColorOS 17 / Android 17 实测可用。MIT License，原作者 rikumi。</string>
+    <string name="xposed_description">恢复 ColorOS 应用间跳转确认框的「始终允许打开」按钮，真实生效。</string>
 
     <string name="app_start_confirm_permission_group">权限管理</string>
     <string name="app_start_confirm_always_allow">恢复始终允许应用间跳转对话框</string>

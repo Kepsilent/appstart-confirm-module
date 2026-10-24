@@ -1,16 +1,13 @@
 package io.github.kepsilent.appstartconfirm.xposed;
 
-import java.lang.reflect.Executable;
 import java.lang.reflect.Member;
-import java.util.HashMap;
-import java.util.Map;
 
 import io.github.libxposed.api.XposedInterface;
 
 /**
- * 旧版 XC_MethodHook 的等价实现: 在新版拦截器链上还原
- * beforeHookedMethod / afterHookedMethod 的语义(含 setResult 短路原方法、
- * 异常传播、以及 before 抛异常时回滚副作用)。
+ * 旧版 XC_MethodHook 的等价实现（极简裁剪版）：在新版拦截器链上还原
+ * beforeHookedMethod / afterHookedMethod 的语义（含 setResult 短路原方法、
+ * 异常传播、以及 before 抛异常时回滚副作用）。
  */
 public abstract class XC_MethodHook {
 
@@ -29,7 +26,6 @@ public abstract class XC_MethodHook {
         private Object result = null;
         private Throwable throwable = null;
         private boolean returnEarly = false;
-        private Map<String, Object> extras;
 
         public Object getResult() {
             return result;
@@ -55,21 +51,6 @@ public abstract class XC_MethodHook {
             this.returnEarly = true;
         }
 
-        public Object getResultOrThrowable() throws Throwable {
-            if (throwable != null) throw throwable;
-            return result;
-        }
-
-        public Object getObjectExtra(String key) {
-            if (extras == null) return null;
-            return extras.get(key);
-        }
-
-        public void setObjectExtra(String key, Object value) {
-            if (extras == null) extras = new HashMap<String, Object>();
-            extras.put(key, value);
-        }
-
         /** 丢弃回调已经产生的返回值/异常, 回到"未拦截"状态。 */
         void resetResult() {
             result = null;
@@ -79,23 +60,6 @@ public abstract class XC_MethodHook {
 
         boolean isReturnEarly() {
             return returnEarly;
-        }
-    }
-
-    public static class Unhook {
-
-        private final XposedInterface.HookHandle handle;
-
-        Unhook(XposedInterface.HookHandle handle) {
-            this.handle = handle;
-        }
-
-        public Executable getHookedMethod() {
-            return handle.getExecutable();
-        }
-
-        public void unhook() {
-            handle.unhook();
         }
     }
 

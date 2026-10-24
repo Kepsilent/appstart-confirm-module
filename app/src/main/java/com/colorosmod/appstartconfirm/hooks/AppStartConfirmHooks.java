@@ -31,8 +31,17 @@ public final class AppStartConfirmHooks {
                         protected void beforeHookedMethod(MethodHookParam param) {
                             Activity activity = (Activity) param.thisObject;
                             Intent original = activity.getIntent();
-                            Intent restored = dialogIntent(original,
-                                    readBool(KEY_APP_START_CONFIRM_ALWAYS_ALLOW_ENABLED, false));
+                            boolean enabled = readBool(KEY_APP_START_CONFIRM_ALWAYS_ALLOW_ENABLED, false);
+                            Intent restored = dialogIntent(original, enabled);
+                            // 诊断日志：一次触发即可定位根因（action/版本/跳转类型/开关/是否命中）
+                            if (original != null) {
+                                log("AppStartConfirm intent: action=" + original.getAction()
+                                        + " version=" + original.getIntExtra(VERSION, -1)
+                                        + " start_type=" + original.getIntExtra("start_type", -1)
+                                        + " enabled=" + enabled + " -> hit=" + (restored != original));
+                            } else {
+                                log("AppStartConfirm intent: null intent");
+                            }
                             if (restored != original) activity.setIntent(restored);
                         }
                     });

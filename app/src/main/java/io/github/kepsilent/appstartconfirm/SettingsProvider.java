@@ -1,4 +1,4 @@
-package com.colorosmod.appstartconfirm;
+package io.github.kepsilent.appstartconfirm;
 
 import android.content.ContentProvider;
 import android.content.ContentValues;
@@ -21,7 +21,7 @@ import android.net.Uri;
  * 通知各被 hook 进程的 ContentObserver 主动刷新。
  */
 public class SettingsProvider extends ContentProvider {
-    public static final String AUTHORITY = "com.colorosmod.appstartconfirm.settings";
+    public static final String AUTHORITY = "io.github.kepsilent.appstartconfirm.settings";
     public static final String PREF_NAME = "settings";
     /** 一次性取回全部设置的特殊键，供被 hook 进程后台预热。 */
     public static final String KEY_ALL = "__all__";

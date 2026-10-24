@@ -74,7 +74,7 @@ The new app-jump confirm dialog in ColorOS permission manager (`activity_start_c
 app/
 └── src/main/
     ├── AndroidManifest.xml            # entry Activity + settings Provider (directBootAware)
-    ├── java/com/colorosmod/appstartconfirm/
+    ├── java/io.github.kepsilent.appstartconfirm/
     │   ├── XposedInit.java            # libxposed entry + cross-process settings reader
     │   ├── SettingsProvider.java      # settings over Binder (bypasses SELinux)
     │   ├── MainActivity.java          # EGD-styled settings page (toggle + hide icon)

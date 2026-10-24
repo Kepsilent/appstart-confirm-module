@@ -1,4 +1,4 @@
-package com.colorosmod.appstartconfirm;
+package io.github.kepsilent.appstartconfirm;
 
 import android.app.Activity;
 import android.content.ComponentName;

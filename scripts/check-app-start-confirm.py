@@ -8,7 +8,7 @@ import textwrap
 import xml.etree.ElementTree as ET
 
 ROOT = Path(__file__).resolve().parents[1]
-SOURCE = ROOT / 'app/src/main/java/com/colorosmod/appstartconfirm/hooks/AppStartConfirmHooks.java'
+SOURCE = ROOT / 'app/src/main/java/io/github/kepsilent/appstartconfirm/hooks/AppStartConfirmHooks.java'
 KEY = 'app_start_confirm_always_allow_enabled'
 
 JAVAC = shutil.which('javac')
@@ -49,8 +49,8 @@ STUBS = {
         }
     ''',
     'android/os/Bundle.java': 'package android.os; public class Bundle {}',
-    'com/colorosmod/appstartconfirm/XposedInit.java': '''
-        package com.colorosmod.appstartconfirm;
+    'io/github/kepsilent/appstartconfirm/XposedInit.java': '''
+        package io.github.kepsilent.appstartconfirm;
         public class XposedInit {
             public static final String KEY_APP_START_CONFIRM_ALWAYS_ALLOW_ENABLED =
                 "app_start_confirm_always_allow_enabled";
@@ -59,14 +59,14 @@ STUBS = {
             public static void log(String message) {}
         }
     ''',
-    'com/colorosmod/appstartconfirm/xposed/XC_LoadPackage.java': '''
-        package com.colorosmod.appstartconfirm.xposed;
+    'io/github/kepsilent/appstartconfirm/xposed/XC_LoadPackage.java': '''
+        package io.github.kepsilent.appstartconfirm.xposed;
         public class XC_LoadPackage {
             public static class LoadPackageParam { public ClassLoader classLoader; }
         }
     ''',
-    'com/colorosmod/appstartconfirm/xposed/XC_MethodHook.java': '''
-        package com.colorosmod.appstartconfirm.xposed;
+    'io/github/kepsilent/appstartconfirm/xposed/XC_MethodHook.java': '''
+        package io.github.kepsilent.appstartconfirm.xposed;
         public abstract class XC_MethodHook {
             protected void beforeHookedMethod(MethodHookParam param) {}
             public void fire(Object activity) {
@@ -76,8 +76,8 @@ STUBS = {
             public static class MethodHookParam { public Object thisObject; }
         }
     ''',
-    'com/colorosmod/appstartconfirm/xposed/XposedHelpers.java': '''
-        package com.colorosmod.appstartconfirm.xposed;
+    'io/github/kepsilent/appstartconfirm/xposed/XposedHelpers.java': '''
+        package io.github.kepsilent.appstartconfirm.xposed;
         public class XposedHelpers {
             public static XC_MethodHook installed;
             public static void findAndHookMethod(String name,ClassLoader loader,
@@ -89,12 +89,12 @@ STUBS = {
             }
         }
     ''',
-    'com/colorosmod/appstartconfirm/hooks/AppStartConfirmTest.java': '''
-        package com.colorosmod.appstartconfirm.hooks;
+    'io/github/kepsilent/appstartconfirm/hooks/AppStartConfirmTest.java': '''
+        package io.github.kepsilent.appstartconfirm.hooks;
         import android.app.Activity;
         import android.content.Intent;
-        import com.colorosmod.appstartconfirm.XposedInit;
-        import com.colorosmod.appstartconfirm.xposed.*;
+        import io.github.kepsilent.appstartconfirm.XposedInit;
+        import io.github.kepsilent.appstartconfirm.xposed.*;
         public class AppStartConfirmTest {
             static int checks;
             static final String ACTION="oplus.app.action.CHECK_ALLOW_START_ACTIVITY";
@@ -161,7 +161,7 @@ with tempfile.TemporaryDirectory(prefix='appstart-confirm-') as temp:
         files.append(str(path))
     subprocess.run([JAVAC, '-d', str(base / 'classes'), str(SOURCE), *files], check=True)
     subprocess.run([JAVA, '-cp', str(base / 'classes'),
-                    'com.colorosmod.appstartconfirm.hooks.AppStartConfirmTest'], check=True)
+                    'io.github.kepsilent.appstartconfirm.hooks.AppStartConfirmTest'], check=True)
 
 # 静态检查：开关键、作用域接入、字符串资源。
 locales = [d.name for d in (ROOT / 'app/src/main/res').iterdir()
@@ -171,8 +171,8 @@ for locale in locales:
                ET.parse(ROOT / 'app/src/main/res' / locale / 'strings.xml').getroot()}
     assert {'app_start_confirm_permission_group', 'app_start_confirm_always_allow'} <= set(strings)
     assert all(strings.values())
-entry = (ROOT / 'app/src/main/java/com/colorosmod/appstartconfirm/XposedInit.java').read_text()
-main = (ROOT / 'app/src/main/java/com/colorosmod/appstartconfirm/MainActivity.java').read_text()
+entry = (ROOT / 'app/src/main/java/io/github/kepsilent/appstartconfirm/XposedInit.java').read_text()
+main = (ROOT / 'app/src/main/java/io/github/kepsilent/appstartconfirm/MainActivity.java').read_text()
 scope = (ROOT / 'app/src/main/resources/META-INF/xposed/scope.list').read_text().splitlines()
 assert KEY in entry and 'XposedInit.KEY_APP_START_CONFIRM_ALWAYS_ALLOW_ENABLED' in main
 assert main.count('XposedInit.KEY_APP_START_CONFIRM_ALWAYS_ALLOW_ENABLED') == 1

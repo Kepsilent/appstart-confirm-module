@@ -3,16 +3,16 @@ plugins {
 }
 
 android {
-    namespace 'com.colorosmod.appstartconfirm'
+    namespace 'io.github.kepsilent.appstartconfirm'
     compileSdk 37
     buildToolsVersion '36.1.0'
 
     defaultConfig {
-        applicationId 'com.colorosmod.appstartconfirm'
+        applicationId 'io.github.kepsilent.appstartconfirm'
         minSdk 26
         targetSdk 37
-        versionCode 4
-        versionName '2.0.1'
+        versionCode 5
+        versionName '3.0.0'
     }
 
     // 可选：固定签名（便于跨版本升级）。默认走 Android 自动 debug 签名，直接可装。

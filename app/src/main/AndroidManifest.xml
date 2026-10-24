@@ -44,7 +44,7 @@
         -->
         <provider
             android:name=".SettingsProvider"
-            android:authorities="com.colorosmod.appstartconfirm.settings"
+            android:authorities="io.github.kepsilent.appstartconfirm.settings"
             android:directBootAware="true"
             android:exported="true" />
     </application>

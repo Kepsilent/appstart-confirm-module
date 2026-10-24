@@ -1,4 +1,4 @@
-package com.colorosmod.appstartconfirm.xposed;
+package io.github.kepsilent.appstartconfirm.xposed;
 
 import java.lang.reflect.Executable;
 import java.lang.reflect.Member;

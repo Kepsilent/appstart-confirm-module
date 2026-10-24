@@ -1,4 +1,4 @@
-package com.colorosmod.appstartconfirm.xposed;
+package io.github.kepsilent.appstartconfirm.xposed;
 
 import android.util.Log;
 

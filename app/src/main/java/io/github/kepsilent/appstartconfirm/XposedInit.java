@@ -1,4 +1,4 @@
-package com.colorosmod.appstartconfirm;
+package io.github.kepsilent.appstartconfirm;
 
 import android.content.ContentResolver;
 import android.content.Context;
@@ -8,10 +8,10 @@ import android.net.Uri;
 import android.os.Handler;
 import android.os.HandlerThread;
 
-import com.colorosmod.appstartconfirm.hooks.AppStartConfirmHooks;
-import com.colorosmod.appstartconfirm.xposed.XC_LoadPackage;
-import com.colorosmod.appstartconfirm.xposed.XposedBridge;
-import com.colorosmod.appstartconfirm.xposed.XposedHelpers;
+import io.github.kepsilent.appstartconfirm.hooks.AppStartConfirmHooks;
+import io.github.kepsilent.appstartconfirm.xposed.XC_LoadPackage;
+import io.github.kepsilent.appstartconfirm.xposed.XposedBridge;
+import io.github.kepsilent.appstartconfirm.xposed.XposedHelpers;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -37,7 +37,7 @@ public class XposedInit extends XposedModule {
 
     public static final String TAG = "AppStartConfirm";
     public static final String PREF_NAME = "settings";
-    public static final String SETTINGS_AUTHORITY = "com.colorosmod.appstartconfirm.settings";
+    public static final String SETTINGS_AUTHORITY = "io.github.kepsilent.appstartconfirm.settings";
     public static final String SETTINGS_ALL_KEY = "__all__";
 
     public static final String KEY_APP_START_CONFIRM_ALWAYS_ALLOW_ENABLED =

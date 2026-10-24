@@ -1,16 +1,16 @@
-package com.colorosmod.appstartconfirm.hooks;
+package io.github.kepsilent.appstartconfirm.hooks;
 
-import static com.colorosmod.appstartconfirm.XposedInit.KEY_APP_START_CONFIRM_ALWAYS_ALLOW_ENABLED;
-import static com.colorosmod.appstartconfirm.XposedInit.log;
-import static com.colorosmod.appstartconfirm.XposedInit.readBool;
+import static io.github.kepsilent.appstartconfirm.XposedInit.KEY_APP_START_CONFIRM_ALWAYS_ALLOW_ENABLED;
+import static io.github.kepsilent.appstartconfirm.XposedInit.log;
+import static io.github.kepsilent.appstartconfirm.XposedInit.readBool;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.colorosmod.appstartconfirm.xposed.XC_LoadPackage;
-import com.colorosmod.appstartconfirm.xposed.XC_MethodHook;
-import com.colorosmod.appstartconfirm.xposed.XposedHelpers;
+import io.github.kepsilent.appstartconfirm.xposed.XC_LoadPackage;
+import io.github.kepsilent.appstartconfirm.xposed.XC_MethodHook;
+import io.github.kepsilent.appstartconfirm.xposed.XposedHelpers;
 
 /**
  * SecurityPermission 16.08.003 的原生应用间跳转确认框，运行在 :ui 进程。

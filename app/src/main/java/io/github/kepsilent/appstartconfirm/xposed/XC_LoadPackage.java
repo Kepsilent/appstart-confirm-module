@@ -1,4 +1,4 @@
-package com.colorosmod.appstartconfirm.xposed;
+package io.github.kepsilent.appstartconfirm.xposed;
 
 /**
  * 旧版 XC_LoadPackage 的等价结构: 新版 API 把包名/类加载器分散在

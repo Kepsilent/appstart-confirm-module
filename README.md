@@ -74,7 +74,7 @@ ColorOS 权限管理新版跳转确认框（`activity_start_confirm_version=2`�
 app/
 └── src/main/
     ├── AndroidManifest.xml            # 入口 Activity + 设置 Provider（directBootAware）
-    ├── java/com/colorosmod/appstartconfirm/
+    ├── java/io.github.kepsilent.appstartconfirm/
     │   ├── XposedInit.java            # libxposed 入口 + 跨进程设置读取
     │   ├── SettingsProvider.java      # 跨进程暴露设置（Binder，绕开 SELinux）
     │   ├── MainActivity.java          # EGD 风格设置页（开关 + 隐藏图标）

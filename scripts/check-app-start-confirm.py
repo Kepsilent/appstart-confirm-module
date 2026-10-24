@@ -169,7 +169,7 @@ locales = [d.name for d in (ROOT / 'app/src/main/res').iterdir()
 for locale in locales:
     strings = {s.attrib['name']: s.text for s in
                ET.parse(ROOT / 'app/src/main/res' / locale / 'strings.xml').getroot()}
-    assert {'app_start_confirm_permission_group', 'app_start_confirm_always_allow'} <= set(strings)
+    assert {'app_start_confirm_always_allow', 'settings_hide_icon'} <= set(strings)
     assert all(strings.values())
 entry = (ROOT / 'app/src/main/java/io/github/kepsilent/appstartconfirm/XposedInit.java').read_text()
 main = (ROOT / 'app/src/main/java/io/github/kepsilent/appstartconfirm/MainActivity.java').read_text()

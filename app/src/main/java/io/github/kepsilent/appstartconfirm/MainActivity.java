@@ -10,14 +10,13 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.widget.CompoundButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.Switch;
 import android.widget.TextView;
 
 /**
- * 独立模块设置页（EGD v1.2 风格：纯白/纯黑底 + 液态玻璃卡片 + 霞鹜文楷 + 签名绿）。
+ * 独立模块设置页（EGD 极简版：纯色底 + 玻璃卡片 + 霞鹜文楷 + 签名绿，无多余文案）。
  * 设置写入设备加密(DE)存储（与 SettingsProvider 同源），写入后通过
  * notifySettingsChanged 推送给被 hook 进程，无需重启即可在下一次跳转生效。
  */
@@ -25,15 +24,13 @@ public class MainActivity extends Activity {
 
     private static final String KEY = XposedInit.KEY_APP_START_CONFIRM_ALWAYS_ALLOW_ENABLED;
 
-    private Typeface fontMedium;
-    private Typeface fontRegular;
+    private Typeface font;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        fontMedium = Typeface.createFromAsset(getAssets(), "fonts/lxgw-wenkai-medium.ttf");
-        fontRegular = Typeface.createFromAsset(getAssets(), "fonts/lxgw-wenkai-regular.ttf");
+        font = Typeface.createFromAsset(getAssets(), "fonts/lxgw-wenkai-regular.ttf");
 
         LinearLayout root = new LinearLayout(this);
         root.setOrientation(LinearLayout.VERTICAL);
@@ -41,32 +38,12 @@ public class MainActivity extends Activity {
         int pagePad = dp(20);
         root.setPadding(pagePad, dp(28), pagePad, dp(28));
 
-        // ── 页头：盾牌闪电徽标 + 模块名 ──
-        LinearLayout header = new LinearLayout(this);
-        header.setOrientation(LinearLayout.HORIZONTAL);
-        header.setGravity(Gravity.CENTER_VERTICAL);
-        ImageView badge = new ImageView(this);
-        badge.setImageResource(R.drawable.ic_shield_zap);
-        int badgeSize = dp(30);
-        badge.setLayoutParams(new LinearLayout.LayoutParams(badgeSize, badgeSize));
-        header.addView(badge);
-        TextView title = text(R.string.app_name, 20, R.color.text_primary, fontMedium, 0);
-        LinearLayout.LayoutParams titleLp = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        titleLp.leftMargin = dp(10);
-        title.setLayoutParams(titleLp);
-        header.addView(title);
-        root.addView(header);
+        TextView title = text(R.string.app_name, 20, R.color.text_primary, 0);
+        title.setGravity(Gravity.CENTER_HORIZONTAL);
+        root.addView(title);
 
-        // ── 卡片 1：恢复始终允许应用间跳转 ──
-        root.addView(cardAlwaysAllow(), cardLp(0, dp(20)));
-
-        // ── 卡片 2：隐藏桌面图标 ──
+        root.addView(cardAlwaysAllow(), cardLp(0, dp(24)));
         root.addView(cardHideIcon(), cardLp(0, dp(16)));
-
-        // ── 底部提示 ──
-        TextView risk = text(R.string.settings_risk_hint, 12, R.color.text_weak, fontRegular, 0);
-        root.addView(risk, cardLp(dp(4), dp(16)));
 
         ScrollView sv = new ScrollView(this);
         sv.setFillViewport(true);
@@ -81,7 +58,7 @@ public class MainActivity extends Activity {
         sw.setText(R.string.app_start_confirm_always_allow);
         sw.setTextSize(16);
         sw.setTextColor(color(R.color.text_primary));
-        sw.setTypeface(fontMedium);
+        sw.setTypeface(font);
         styleSwitch(sw);
         sw.setChecked(readPref());
         sw.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -91,8 +68,6 @@ public class MainActivity extends Activity {
             }
         });
         card.addView(sw);
-        card.addView(text(R.string.settings_switch_hint, 13, R.color.text_secondary, fontRegular, dp(12)));
-        card.addView(text(R.string.settings_scope_hint, 13, R.color.text_secondary, fontRegular, dp(10)));
         return card;
     }
 
@@ -103,7 +78,7 @@ public class MainActivity extends Activity {
         hideSw.setText(R.string.settings_hide_icon);
         hideSw.setTextSize(16);
         hideSw.setTextColor(color(R.color.text_primary));
-        hideSw.setTypeface(fontMedium);
+        hideSw.setTypeface(font);
         styleSwitch(hideSw);
         hideSw.setChecked(isLauncherIconHidden());
         hideSw.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -113,7 +88,7 @@ public class MainActivity extends Activity {
             }
         });
         card.addView(hideSw);
-        card.addView(text(R.string.settings_hide_icon_hint, 13, R.color.text_secondary, fontRegular, dp(12)));
+        card.addView(text(R.string.settings_hide_icon_hint, 12, R.color.text_weak, dp(8)));
         return card;
     }
 
@@ -121,7 +96,7 @@ public class MainActivity extends Activity {
         LinearLayout card = new LinearLayout(this);
         card.setOrientation(LinearLayout.VERTICAL);
         card.setBackgroundResource(R.drawable.bg_glass_card);
-        int pad = dp(20);
+        int pad = dp(18);
         card.setPadding(pad, pad, pad, pad);
         return card;
     }
@@ -168,12 +143,12 @@ public class MainActivity extends Activity {
                 PackageManager.DONT_KILL_APP);
     }
 
-    private TextView text(int resId, float sp, int colorRes, Typeface tf, int topPadding) {
+    private TextView text(int resId, float sp, int colorRes, int topPadding) {
         TextView tv = new TextView(this);
         tv.setText(resId);
         tv.setTextSize(sp);
         tv.setTextColor(color(colorRes));
-        tv.setTypeface(tf);
+        tv.setTypeface(font);
         tv.setLineSpacing(0f, 1.2f);
         tv.setPadding(0, topPadding, 0, 0);
         return tv;

@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="app_name">Always allow app-to-app jumps</string>
-    <string name="xposed_description">Restores the \"Always allow to open\" checkbox in ColorOS app-jump confirmations — and it actually works.</string>
-</resources>

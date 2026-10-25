@@ -1,3 +1,7 @@
+id=appstartconfirm
+name=恢复始终允许打开
+description=恢复 ColorOS 应用间跳转确认框的「始终允许打开」按钮，真实生效。
+author=Kepsilent
 minApiVersion=102
 targetApiVersion=102
 staticScope=true

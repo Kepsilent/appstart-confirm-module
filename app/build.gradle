@@ -11,8 +11,8 @@ android {
         applicationId 'io.github.kepsilent.appstartconfirm'
         minSdk 26
         targetSdk 37
-        versionCode 14
-        versionName '3.0.9'
+        versionCode 15
+        versionName '3.0.10'
     }
 
     buildFeatures {

@@ -7,6 +7,5 @@
 -keep interface io.github.libxposed.service.** { *; }
 
 # 兼容层与 hook 类被 XposedInit 代码级引用，shrink 自动保留；不混淆
--dontobfuscate
 
 # hook 目标类名是字符串字面量，不受影响；不需要 keep 任何系统类

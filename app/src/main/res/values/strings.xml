@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="app_name">恢复始终允许应用间跳转</string>
-    <string name="xposed_description">恢复 ColorOS 应用间跳转确认框的「始终允许打开」按钮，真实生效。</string>
-</resources>

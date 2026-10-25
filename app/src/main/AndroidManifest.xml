@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
-
-    <!-- 无界面、无设置、无桌面图标：模块启用即生效（入口见 META-INF/xposed/java_init.list）。 -->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application
-        android:label="@string/app_name"
-        android:description="@string/xposed_description"
-        tools:ignore="MissingApplicationIcon" />
-
+        android:label="恢复始终允许打开"
+        tools:ignore="MissingApplicationIcon"
+        xmlns:tools="http://schemas.android.com/tools" />
 </manifest>

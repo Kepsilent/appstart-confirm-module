@@ -151,17 +151,17 @@ with tempfile.TemporaryDirectory(prefix='appstart-confirm-') as temp:
     subprocess.run([JAVA, '-cp', str(base / 'classes'),
                     'io.github.kepsilent.appstartconfirm.hooks.AppStartConfirmTest'], check=True)
 
-# 静态检查：开关键、作用域接入、字符串资源。
-locales = [d.name for d in (ROOT / 'app/src/main/res').iterdir()
-           if d.is_dir() and d.name.startswith('values') and (d / 'strings.xml').is_file()]
-for locale in locales:
-    strings = {s.attrib['name']: s.text for s in
-               ET.parse(ROOT / 'app/src/main/res' / locale / 'strings.xml').getroot()}
-    assert {'app_name', 'xposed_description'} <= set(strings)
-    assert all(strings.values())
+# 静态检查：模块入口、作用域接入、module.prop（v3.0.9-min 起无 res，label 为 manifest 字面量）。
+module_prop = (ROOT / 'app/src/main/resources/META-INF/xposed/module.prop').read_text()
+assert 'staticScope=true' in module_prop
+assert 'minApiVersion=102' in module_prop
+assert 'name=' in module_prop and 'description=' in module_prop
+manifest = (ROOT / 'app/src/main/AndroidManifest.xml').read_text()
+assert 'android:label="恢复始终允许打开"' in manifest
+assert not (ROOT / 'app/src/main/res').exists(), 'res/ 应已删除（label 已改 manifest 字面量）'
 entry = (ROOT / 'app/src/main/java/io/github/kepsilent/appstartconfirm/XposedInit.java').read_text()
 scope = (ROOT / 'app/src/main/resources/META-INF/xposed/scope.list').read_text().splitlines()
 assert 'com.oplus.securitypermission' in entry
 assert 'AppStartConfirmHooks.hook(lpparam);' in entry
 assert 'com.oplus.securitypermission' in scope
-print('PASS: setting key, package routing, static scope and locale resources:', ', '.join(locales))
+print('PASS: setting key, package routing, static scope and module props (res removed, literal label)')

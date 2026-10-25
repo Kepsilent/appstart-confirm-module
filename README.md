@@ -5,7 +5,7 @@
 
 ![banner](docs/banner.png)
 
-**机制级兼容** · 无版本白名单 · **10.3KB** · 已在 **ColorOS 17 / Android 17** 实测可用
+**机制级兼容** · 无版本白名单 · **9.4KB** · 已在 **ColorOS 17 / Android 17** 实测可用
 （逻辑基线：权限管理 16.08.003，反编译核对）
 
 ---
@@ -15,7 +15,7 @@
 - **恢复原生「始终允许打开」复选框**：新版跳转确认框（`activity_start_confirm_version=2`）只有「30 天内允许」，本模块在 `AppStartConfirmDialogActivity#onCreate` 前把 Intent 版本改回 0，让系统走自带「始终允许打开」复选框的旧对话框
 - **只 hook 一个点**：不修改点击回调、不调用启动/保存接口；支付保护、小程序拦截、黑名单、游戏支付拦截保持原生路径
 - **启用即生效**：无界面、无设置、无桌面图标，静态作用域预加载；模块启用后无需任何配置
-- **10.3KB**：dex 7KB + 三件套 + 两个字符串；零死重（无 service 库、无 Kotlin/Compose/androidx）
+- **9.4KB（极限压缩）**：dex 6.7KB 原始 + 签名块 + 三件套；R8 收缩 + 混淆，无 res 资源表、零死重（无 service 库、无 Kotlin/Compose/androidx）
 - **诊断日志**：每次确认框触发输出 `action/version/start_type/hit` 到 LSPosed 日志，一次定位问题
 
 ## 安装与使用
@@ -49,7 +49,7 @@ export ANDROID_HOME=/path/to/android-sdk
 # 产物：app/build/outputs/apk/release/app-release.apk
 ```
 
-release 开启 R8 收缩（`minifyEnabled true`，已配置 keep 规则，体积 10.3KB）。默认 debug 签名直接可装；固定签名（升级不丢签名）见 `signing.properties.example`。
+release 开启 R8 收缩 + 混淆（`minifyEnabled true`，已配置 keep 规则，体积 9.4KB）。默认 debug 签名直接可装；固定签名（升级不丢签名）见 `signing.properties.example`。
 
 ## 验证
 
@@ -73,7 +73,7 @@ ColorOS 权限管理新版跳转确认框（`activity_start_confirm_version=2`�
 
 ```
 app/src/main/
-├── AndroidManifest.xml            # 仅 label/description（无 Activity/Provider/图标）
+├── AndroidManifest.xml            # 仅 label 字面量（无 Activity/Provider/图标，无 res 资源）
 ├── java/io.github.kepsilent.appstartconfirm/
 │   ├── XposedInit.java            # libxposed 入口（onModuleLoaded/Loaded/Ready）
 │   ├── hooks/AppStartConfirmHooks.java  # 唯一的 hook + 诊断日志
@@ -90,7 +90,8 @@ docs/banner.png
 | v1.x | ~365 KB | 原始提取，含完整 UI 与设置体系 |
 | v3.0.4 | 37.8 KB | 无图标 + 单开关 + R8 |
 | v3.0.8 | 27.9 KB | 兼容层手工裁剪（830 → 130 行） |
-| **v3.0.9** | **10.3 KB** | **去掉 service 库死重 + R8 业务收缩** |
+| v3.0.9 | 10.3 KB | 去掉 service 库死重 + R8 业务收缩 |
+| **v3.0.10** | **9.4 KB** | **极限压缩：混淆 + 删 res 资源表 + label 字面量** |
 
 ## 许可
 

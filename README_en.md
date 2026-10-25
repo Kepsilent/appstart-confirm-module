@@ -5,7 +5,7 @@
 
 ![banner](docs/banner.png)
 
-**Mechanism-level compatibility** · no version whitelist · **10.3KB** · verified on **ColorOS 17 / Android 17**
+**Mechanism-level compatibility** · no version whitelist · **9.4KB** · verified on **ColorOS 17 / Android 17**
 (logic baseline: SecurityPermission 16.08.003, decompiled and verified)
 
 ---
@@ -15,7 +15,7 @@
 - **Restores the native "Always allow to open" checkbox**: the new dialog (`activity_start_confirm_version=2`) only offers "Allow for 30 days". This module rewrites the Intent version back to 0 before `AppStartConfirmDialogActivity#onCreate`, making the system use the legacy dialog with the "Always allow to open" checkbox
 - **Single hook point**: no click-callback patching, no direct grant API calls; payment protection, mini-program interception, blacklist and game-pay interception keep their native paths
 - **Works out of the box**: no UI, no settings, no launcher icon, static-scope preloading — nothing to configure once enabled
-- **10.3KB**: 7KB dex + xposed assets + two strings; zero dead weight (no service library, no Kotlin/Compose/androidx)
+- **9.4KB (ultimate shrink)**: 6.7KB raw dex + signing block + xposed assets; R8 shrink + obfuscation, no res table, zero dead weight (no service library, no Kotlin/Compose/androidx)
 - **Diagnostics**: every dialog trigger logs `action/version/start_type/hit` to the LSPosed log for one-shot root-causing
 
 ## Install & Use
@@ -49,7 +49,7 @@ export ANDROID_HOME=/path/to/android-sdk
 # Output: app/build/outputs/apk/release/app-release.apk
 ```
 
-Release enables R8 shrinking (`minifyEnabled true`, keep rules configured, 10.3KB). Default debug signing is installable out of the box; for a stable signature see `signing.properties.example`.
+Release enables R8 shrinking + obfuscation (`minifyEnabled true`, keep rules configured, 9.4KB). Default debug signing is installable out of the box; for a stable signature see `signing.properties.example`.
 
 ## Verification
 
@@ -73,7 +73,7 @@ The new ColorOS jump-confirmation dialog (`activity_start_confirm_version=2`) dr
 
 ```
 app/src/main/
-├── AndroidManifest.xml            # label/description only (no Activity/Provider/icon)
+├── AndroidManifest.xml            # literal label only (no Activity/Provider/icon, no res)
 ├── java/io.github.kepsilent.appstartconfirm/
 │   ├── XposedInit.java            # libxposed entry (onModuleLoaded/Loaded/Ready)
 │   ├── hooks/AppStartConfirmHooks.java  # the only hook + diagnostics
@@ -90,7 +90,8 @@ docs/banner.png
 | v1.x | ~365 KB | initial extraction with full UI & settings |
 | v3.0.4 | 37.8 KB | no icon + one toggle + R8 |
 | v3.0.8 | 27.9 KB | hand-trimmed compat layer (830 → 130 lines) |
-| **v3.0.9** | **10.3 KB** | **service-library dead weight removed + R8 on business code** |
+| v3.0.9 | 10.3 KB | service-library dead weight removed + R8 on business code |
+| **v3.0.10** | **9.4 KB** | **ultimate shrink: obfuscation + res table removed + literal label** |
 
 ## License
 
